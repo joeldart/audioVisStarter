@@ -3,8 +3,8 @@ import Analyser from './Analyser.js';
 // visualiser class - create a new one of these to create a new vis
 class Vis extends Analyser {
 	
-	constructor(size, trackid) {
-		super(size, trackid);
+	constructor(size, trackid, isLocal, loop) {
+		super(size, trackid, isLocal, loop);
 		this.raf = 1;
 	}
 	
@@ -13,6 +13,7 @@ class Vis extends Analyser {
 	
 	start() {
 		this.run();
+		this.running = true;
 
 		const loop = (t) => {
       this.raf = requestAnimationFrame(loop);
@@ -33,6 +34,8 @@ class Vis extends Analyser {
 	}
 	
 	stop() {
+		this.running = false;
+		
 		this.disconnect();
 		cancelAnimationFrame(this.raf);
 	}

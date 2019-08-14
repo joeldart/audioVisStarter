@@ -20,6 +20,33 @@ body {
   border: var(--border);
 }
 
+#controls2 {
+  --colour: pink;
+  --border: 2px solid var(--dark);
+  --borderRad: 2px;
+  position: absolute; top: 100px; right: 0px;
+  padding: 0px var(--space);
+  background-color: hsla(0, 0%, 100%, 0.6);
+  border: var(--border);
+}
+#controls3 {
+  --colour: pink;
+  --border: 2px solid var(--dark);
+  --borderRad: 2px;
+  position: absolute; top: 200px; right: 0px;
+  padding: 0px var(--space);
+  background-color: hsla(0, 0%, 100%, 0.6);
+  border: var(--border);
+}#controls4 {
+  --colour: pink;
+  --border: 2px solid var(--dark);
+  --borderRad: 2px;
+  position: absolute; top: 300px; right: 0px;
+  padding: 0px var(--space);
+  background-color: hsla(0, 0%, 100%, 0.6);
+  border: var(--border);
+}
+
 button {cursor: pointer; font-family: monospace;}
 
 /* play button */

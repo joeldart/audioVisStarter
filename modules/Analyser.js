@@ -3,11 +3,13 @@
 class Analyser {
   
   // set id to null & if it's set on instigation run soundcloud not local
-  constructor(dataSize = 512, trackID = null) {
+  constructor(dataSize = 512, trackID = null, isLocal = false, loop = false) {
     this.audio_ctx = new AudioContext();
 
     this.useMic = false;
     this.track_id = trackID;
+    this.isLocal = isLocal;
+    this.loop = loop;
     if (this.track_id === null) {
       this.useMic = true
     } else {
@@ -41,7 +43,7 @@ class Analyser {
     } else {
       
       return new Promise((resolve, reject) => {
-        resolve(this.audio_ctx.createMediaElementSource(this.track));
+          resolve(this.audio_ctx.createMediaElementSource(this.track));
       }).then(source => {
           source.connect(this.analyser_node).connect(this.audio_ctx.destination);
           return source;
@@ -68,9 +70,10 @@ class Analyser {
   _createTrack() {
     this.audio = new Audio(this.source);
     this.audio.crossOrigin = "anonymous";
+    this.audio.loop = this.loop;
     // track id is null use local track
-    if (this.track_id === '/beast.mp3') {
-      this.audio.src = '/beast.mp3';
+    if (this.isLocal) {
+      this.audio.src = this.track_id;
     } else { // use sound cloud
       this.client_id = 'z8LRYFPM4UK5MMLaBe9vixfph5kqNA25';
       this.audio.src = `https://api.soundcloud.com/tracks/${this.track_id}/stream?client_id=${this.client_id}`;
@@ -92,8 +95,9 @@ class Analyser {
   disconnect() {
     if (!this.useMic) {
       this.track.pause();
+      this.track.currentTime = 0;
     }
-    this.analyser_node.disconnect();
+//    this.analyser_node.disconnect();
   }
 }
 
